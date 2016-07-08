@@ -6,6 +6,13 @@ Find Me Comics, is the third project in the "Find Me" Series. This web applicati
 Video Url: https://www.youtube.com/watch?v=UcMTPKB7n-Q&index=5&list=PLG3CZEAwI9EqGgyXbrilpWo7WQsF-e5Kg
 
 #Installation
+Installation is pretty simple.<br/>
+Windows<br/>
+1. Download Python 2.7<br/>
+2. Download Zip<br/>
+3. Proceed to Launch Application
 
 
 #Launching the App
+
+Launching the app is just a click away, just click the batch file titled "Find Me Comics"
