@@ -7,12 +7,12 @@ Video Url: https://www.youtube.com/watch?v=UcMTPKB7n-Q&index=5&list=PLG3CZEAwI9E
 
 #Installation
 Installation is pretty simple.<br/>
-Windows<br/>
-1. Download Python 2.7<br/>
+(Windows Only) 1. Download Python 2.7<br/>
 2. Download Zip<br/>
 3. Proceed to Launch Application
 
 
 #Launching the App
 
-Launching the app is just a click away, just click the batch file titled "Find Me Comics"
+Launching the app is just a click away, just click the batch file titled "Find Me Comics"<br/>
+(Mac Only) Open up web browser and type url given to you by the terminal (Ex. 'Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)')
