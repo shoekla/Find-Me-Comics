@@ -1,6 +1,5 @@
 import urllib2
 import re
-import nltk
 import csv
 import time
 import requests
