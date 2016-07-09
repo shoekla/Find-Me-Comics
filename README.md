@@ -14,5 +14,4 @@ Installation is pretty simple.<br/>
 
 #Launching the App
 
-Launching the app is just a click away, just click the batch file titled "Find Me Comics"<br/>
-(Mac Only) Open up web browser and type url given to you by the terminal (Ex. 'Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)')
+Launching the app is just a click away, just click the file titled "Find Me Comics" (.bat for windows, .sh for mac)<br/>
