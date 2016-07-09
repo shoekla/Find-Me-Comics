@@ -12,6 +12,7 @@ pip install bs4
 pip install BeautifulSoup
 
 cd code
+(/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --enable-speech-input http://127.0.0.1:5000/) &
 python launch.py
 
 
