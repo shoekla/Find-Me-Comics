@@ -97,7 +97,7 @@ def takeoutHTML(lyric) :
 
 def getStatus(name):
 	name = name.replace(" ","-")
-	url = "http://www.readcomics.net/comic/"+name+""
+	url = "http://www.readcomics.tv/comic/"+name+""
 	source_code=requests.get(url)
 	plain_text=source_code.text
 	index = plain_text.find("Status")
@@ -108,7 +108,7 @@ def getStatus(name):
 	return res
 def getGenre(name):
 	name = name.replace(" ","-")
-	url = "http://www.readcomics.net/comic/"+name+""
+	url = "http://www.readcomics.tv/comic/"+name+""
 	source_code=requests.get(url)
 	plain_text=source_code.text
 	index = plain_text.find("Genre")
@@ -120,7 +120,7 @@ def getGenre(name):
 def getIssuse(name):
 	arr = []
 	name = name.replace(" ","-")
-	url = "http://www.readcomics.net/comic/"+name+""
+	url = "http://www.readcomics.tv/comic/"+name+""
 	source_code=requests.get(url)
 	plain_text=source_code.text
 	soup=BeautifulSoup(plain_text)
@@ -145,7 +145,7 @@ def getIssueName(name):
 	return name[index2+1:]
 def getPop():
 	arr = []
-	url = "http://www.readcomics.net/"
+	url = "http://www.readcomics.tv/"
 	source_code=requests.get(url)
 	plain_text=source_code.text
 	soup=BeautifulSoup(plain_text)
@@ -163,22 +163,10 @@ def getPop():
 					if "chapter-" in href_test:
 						arr.append(str(href_test))
 	return deleteDuplicates(arr)	
-def getPic(url):
-	index = url.find(".net/")
-	index2 = url.find("/",index+5)
-	rea = url[index+5:index2]
-	url = "http://www.readcomics.net/comic/"+rea
-	source_code=requests.get(url)
-	plain_text=source_code.text
-	soup=BeautifulSoup(plain_text)
-	for link in soup.findAll('img'):
-		href=link.get('src')
-		href_test=str(href)
-		if "logo" not in href_test:
-			return href
+
 def getPicFromName(name):
 	name = name.replace(" ","-")
-	url = "http://www.readcomics.net/comic/"+name
+	url = "http://www.readcomics.tv/comic/"+name
 	source_code=requests.get(url)
 	plain_text=source_code.text
 	soup=BeautifulSoup(plain_text)
@@ -187,17 +175,21 @@ def getPicFromName(name):
 		href_test=str(href)
 		if "logo" not in href_test:
 			return href
+def getPic(url):
+	index = url.find("/" , url.find(".tv"))
+	index2 = url.find("/",index+1)
+	return getPicFromName(url[index+1:index2])
 def getHomeLink(url):
-	index = url.find(".net/")
+	index = url.find(".tv/")
 	index2 = url.find("/",index+5)
-	rea = url[index+5:index2]
+	rea = url[index+4:index2]
 	return rea
 def searchComic(name):
 	arr = []
 	name = name.lower()
 	namesArr = name.split(' ')
 	name = name.replace(" ","+")
-	url = "http://www.readcomics.net/comic-search?key="+name+""
+	url = "http://www.readcomics.tv/comic-search?key="+name+""
 	print "Url: "+url
 	source_code=requests.get(url)
 	plain_text=source_code.text
@@ -224,9 +216,7 @@ def searchComic(name):
 
 #print getIssueName("http://www.readcomics.net/harley-quinn/chapter-26")
 
-
-
-
-
-
-
+#print getHomeLink("http://www.readcomics.tv/harley-quinn/chapter-26")
+arr = searchComic("Super man")
+for i in arr:
+	print i
