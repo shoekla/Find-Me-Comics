@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def Home(popA = None, images = None,pop = None):
-	popA = None
+	"""popA = None
 	popA = []
 	images = None
 	images = []
@@ -22,6 +22,8 @@ def Home(popA = None, images = None,pop = None):
 		images.append(scrape.getPic(i))
 		pop.append(scrape.getHomeLink(i))
 	return render_template("home.html",pop = pop,images = images)
+	"""
+	return render_template("login.html")
 @app.route('/load')
 def loadTem():
 	return render_template("load.html")

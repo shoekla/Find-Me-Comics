@@ -217,6 +217,4 @@ def searchComic(name):
 #print getIssueName("http://www.readcomics.net/harley-quinn/chapter-26")
 
 #print getHomeLink("http://www.readcomics.tv/harley-quinn/chapter-26")
-arr = searchComic("Super man")
-for i in arr:
-	print i
+
