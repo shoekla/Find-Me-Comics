@@ -48,7 +48,7 @@
                 
                
                 <li class="dropdown hm-profile">
-                    <a data-toggle="dropdown" href="/myComics">
+                    <a data-toggle="dropdown" href="">
                         <img src="{{ url_for('static', filename='yourComics.png')}}" alt="">
                     </a>
                     
@@ -75,7 +75,7 @@
 
                 <div class="container">
                 
-                    <h2><u>Popular Comics</u></h2>
+                    <h2><u>Your Comics</u></h2>
                        {% for url in pop%}
 
                          <a href="/{{url}}"> <img src="{{images[pop.index(url)]}}"/></a>

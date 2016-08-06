@@ -7,23 +7,103 @@ from random import randint
 import time
 import scrape
 import os
+import sendMail
 app = Flask(__name__)
 
 @app.route('/')
-def Home(popA = None, images = None,pop = None):
-	"""popA = None
-	popA = []
-	images = None
-	images = []
-	pop = None
-	pop = []
-	popA = scrape.getPop()
-	for i in popA:
-		images.append(scrape.getPic(i))
-		pop.append(scrape.getHomeLink(i))
-	return render_template("home.html",pop = pop,images = images)
-	"""
-	return render_template("login.html")
+def Home(popA = None, images = None,pop = None,name = None):
+	if scrape.userName != "":
+		popA = None
+		popA = []
+		name = None
+		name = ""
+		name = scrape.userName
+		images = None
+		images = []
+		pop = None
+		pop = []
+		popA = scrape.getPop()
+		for i in popA:
+			images.append(scrape.getPic(i))
+			pop.append(scrape.getHomeLink(i))
+		return render_template("home.html",pop = pop,images = images,name=name)
+	else:	
+		return render_template("login.html")
+@app.route('/FindMeComicUser',methods=['POST'])
+def signIn(email= None,passW=None):
+	print "Sign"
+	email = None
+	passW = None
+	email = ""
+	passW = ""
+	email = request.form['email']
+	passW = request.form['passW']
+	scrape.setUserName(email)
+	print "Sign2"
+	if scrape.loginUser(email,passW):
+		return redirect("/")
+	else:
+		return render_template("login.html",mess="Invalid Login Credentials")
+@app.route('/AddComicUser',methods=['POST'])
+def signUp(email= None,passW=None):
+	print "Sign"
+	email = None
+	passW = None
+	email = ""
+	passW = ""
+	email = request.form['email']
+	passW = request.form['passW']
+	print "Sign2"
+	if scrape.isGood(email):
+		return render_template("login.html",mess="Email already In System :(")
+	else:
+		scrape.addUser(email,passW)
+		return render_template("login.html",mess="You Were added! Please Sign in")
+		
+@app.route('/emailUser',methods=['POST'])
+def forgotEmail(email=None,passW=None):
+	print "Sign"
+	email = None
+	passW = None
+	email = ""
+	passW = ""
+	email = request.form['email']
+	if scrape.getPass(email) == "":
+		return render_template("login.html",mess="Email not found :(")
+	else:
+		sendMail.sendEmailFromAbir("Password For Find Me Comics", "The password for your Find Me Comics Account is "+scrape.getPass(email)+".",email)
+		return render_template("login.html",mess="Email sent with Password")
+@app.route('/myComics')
+def myComicHome(popA = None,images = None,pop = None,name=None):
+	print "Enter Methid"
+	if scrape.userName != "":
+		print "Enter if Comic"
+		name = None
+		name = ""
+		name = scrape.userName
+		images = None
+		images = []
+		pop = None
+		pop = []
+		print "DO"
+		popA = scrape.getMyComics(name)
+		print "Done"
+		for i in popA:
+			images.append(scrape.getPic(i))
+			pop.append(scrape.getHomeLink(i))
+		print "Done 2"
+		return render_template("myComics.html",pop = pop,images = images,name=name)
+	else:	
+		return render_template("login.html")
+
+@app.route('/addComic/<comic>/')
+def addToMyC(comic,email = None):
+	email = None
+	email = ""
+	email = scrape.userName
+	scrape.addComic(email,comic)
+	return redirect("/myComics")
+
 @app.route('/load')
 def loadTem():
 	return render_template("load.html")

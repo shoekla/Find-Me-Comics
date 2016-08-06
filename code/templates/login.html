@@ -25,36 +25,41 @@
         <div class="login" data-lbg="teal">
             <!-- Login -->
             <div class="l-block toggled" id="l-login">
+
+                  <form action="/FindMeComicUser" method="POST">
                    <br/>
                    <h3> <center>Hi there! Please Sign in</center></h3>
-             
-
+                <center><p style="color:red">{{mess}}</p>
+                        </center>
                 <div class="lb-body">
                     <div class="form-group fg-float">
                         <div class="fg-line">
-                            <input type="text" class="input-sm form-control fg-input">
+                            <input type="text" name="email" class="input-sm form-control fg-input">
                             <label class="fg-label">Email Address</label>
                         </div>
                     </div>
 
                     <div class="form-group fg-float">
                         <div class="fg-line">
-                            <input type="password" class="input-sm form-control fg-input">
+                            <input type="password" name="passW" class="input-sm form-control fg-input">
                             <label class="fg-label">Password</label>
                         </div>
                     </div>
 
-                    <button class="btn palette-Teal bg">Sign in</button>
+                    <button class="btn palette-Teal bg" type="submit">Sign in</button>
 
                     <div class="m-t-20">
                         <a data-block="#l-register" data-bg="blue" class="palette-Teal text d-block m-b-5" href="">Creat an account</a>
                         <a data-block="#l-forget-password" data-bg="purple" href="" class="palette-Teal text">Forgot password?</a>
                     </div>
                 </div>
+                </form>
             </div>
 
             <!-- Register -->
             <div class="l-block" id="l-register">
+
+                  <form action="/AddComicUser" method="POST">
                        <br/>
                    <h3> <center>Welcome Create an Account!</center></h3>
 
@@ -63,14 +68,14 @@
 
                     <div class="form-group fg-float">
                         <div class="fg-line">
-                            <input type="text" class="input-sm form-control fg-input">
+                            <input type="text" name="email" class="input-sm form-control fg-input">
                             <label class="fg-label">Email Address</label>
                         </div>
                     </div>
 
                     <div class="form-group fg-float">
                         <div class="fg-line">
-                            <input type="password" class="input-sm form-control fg-input">
+                            <input type="password" name="passW" class="input-sm form-control fg-input">
                             <label class="fg-label">Password</label>
                         </div>
                     </div>
@@ -82,11 +87,14 @@
                         <a data-block="#l-forget-password" data-bg="purple" href="" class="palette-Blue text">Forgot password?</a>
                     </div>
                 </div>
+                </form>
             </div>
 
             <!-- Forgot Password -->
             <div class="l-block" id="l-forget-password">
                        <br/>
+
+                  <form action="/emailUser" method="POST">
                    <h3> <center>Enter Email For Account</center></h3>
 
                 <div class="lb-body">
@@ -94,7 +102,7 @@
 
                     <div class="form-group fg-float">
                         <div class="fg-line">
-                            <input type="text" class="input-sm form-control fg-input">
+                            <input type="text" name="email" class="input-sm form-control fg-input">
                             <label class="fg-label">Email Address</label>
                         </div>
                     </div>
@@ -106,6 +114,7 @@
                         <a data-block="#l-register" data-bg="blue" href="" class="palette-Purple text">Create an account</a>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
 

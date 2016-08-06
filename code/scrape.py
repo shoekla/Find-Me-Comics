@@ -9,6 +9,14 @@ from BeautifulSoup import BeautifulSoup, SoupStrainer
 import urllib2
 import os
 
+from firebase import firebase
+
+firebase = firebase.FirebaseApplication('https://findmecomics.firebaseio.com/', None)
+userName = ""
+
+def setUserName(name):
+    global userName    # Needed to modify global copy of globvar
+    userName = name
 
 def is_in_arr(lis,s):
 	result=False
@@ -213,7 +221,68 @@ def searchComic(name):
 							arr.append(str(href_test)+"/")
 						break
 	return deleteDuplicates(arr)	
+def getResp(phrase):
+	a = firebase.get(phrase,None)
+	if a == None:
+		return None
+	keys = []
+	for key in a:
+		"""
+		print "key: %s , value: %s" % (key, a[key])
+		"""
+		keys.append(key)
+	return a[keys[0]]
 
+def addUser(email,passW):
+	users = eval(getResp("Users"))
+	users.append(email)
+	firebase.delete('Users',None)
+	firebase.post("Users",str(users))
+	b = eval(getResp("passwords"))
+	b.append(passW)
+	firebase.delete('passwords',None)
+	firebase.post("passwords",str(b))
+def isGood(user):
+	users = eval(getResp("Users"))
+	return user in users
+def loginUser(user,passW):
+	print "Logging In"
+	users = eval(getResp("Users"))
+	b = eval(getResp("passwords"))
+	for i in range(0,len(users)):
+		if users[i] == user:
+			if b[i] == passW:
+				return True
+			else:
+				return False
+	return False
+def getPass(user):
+	print "Logging In"
+	users = eval(getResp("Users"))
+	b = eval(getResp("passwords"))
+	for i in range(0,len(users)):
+		if users[i] == user:
+			return b[i]
+	return ""
+def addComic(email,comic):
+	print "Logging In"
+	users = eval(getResp("Users"))
+	b = eval(getResp("Comics"))
+	for i in range(0,len(users)):
+		if users[i] == email:
+			b[i].append(comic)
+	firebase.delete('Comics',None)
+	firebase.post("Comics",str(b))
+def getMyComics(email):
+	print "Logging In"
+	users = eval(getResp("Users"))
+	b = eval(getResp("Comics"))
+	for i in range(0,len(users)):
+		if users[i] == email:
+			print "Moments"
+			return b[i]
+	print "Log"
+#addUser("abirshukla1@gmail.com","aadi2247")
 #print getIssueName("http://www.readcomics.net/harley-quinn/chapter-26")
 
 #print getHomeLink("http://www.readcomics.tv/harley-quinn/chapter-26")
