@@ -77,7 +77,8 @@ def forgotEmail(email=None,passW=None):
 def myComicHome(popA = None,images = None,pop = None,name=None):
 	print "Enter Methid"
 	if scrape.userName != "":
-		print "Enter if Comic"
+		popA = None
+		popA = []
 		name = None
 		name = ""
 		name = scrape.userName
@@ -85,14 +86,12 @@ def myComicHome(popA = None,images = None,pop = None,name=None):
 		images = []
 		pop = None
 		pop = []
-		print "DO"
 		popA = scrape.getMyComics(name)
-		print "Done"
+		print "One"
 		for i in popA:
-			images.append(scrape.getPic(i))
-			pop.append(scrape.getHomeLink(i))
-		print "Done 2"
-		return render_template("myComics.html",pop = pop,images = images,name=name)
+			images.append(scrape.getPicFromName(i.replace("-"," ").title()))
+		print "Almost"
+		return render_template("myComics.html",popA = popA,images=images)
 	else:	
 		return render_template("login.html")
 
@@ -101,8 +100,18 @@ def addToMyC(comic,email = None):
 	email = None
 	email = ""
 	email = scrape.userName
+	comic = comic.replace(" ","-")
 	scrape.addComic(email,comic)
 	return redirect("/myComics")
+@app.route('/removeComic/<comic>/')
+def removeToMyC(comic,email = None):
+	email = None
+	email = ""
+	email = scrape.userName
+	comic = comic.replace(" ","-")
+	scrape.removeComic(email,comic)
+	return redirect("/myComics")
+
 
 @app.route('/load')
 def loadTem():
@@ -128,7 +137,7 @@ def testPage(s =None):
 	return render_template("test.html",s=s)
 
 @app.route('/<comic>/')
-def comicHome(comic,genre = None,iss=None, issName = None,status=None,image = None):
+def comicHome(comic,genre = None,iss=None, issName = None,status=None,image = None,comicName = None):
 	status = None
 	status = ""
 	genre = None
@@ -136,6 +145,8 @@ def comicHome(comic,genre = None,iss=None, issName = None,status=None,image = No
 	iss = None
 	iss = []
 	issName = None
+	comicName = None
+	comicName = ""
 	issName = []
 	comic = comic.replace(" ","-")
 	iss = scrape.getIssuse(comic)
@@ -143,12 +154,13 @@ def comicHome(comic,genre = None,iss=None, issName = None,status=None,image = No
 		issName.append(scrape.getIssueName(i))
 	genre = scrape.getGenre(comic)
 	status = scrape.getStatus(comic)
+	comicName = comic
 	comic = comic.replace("-"," ")
 	comic = comic.title()
 	image = None
 	image = ""
 	image = scrape.getPicFromName(comic)
-	return render_template("comicHome.html",iss = iss, issName = issName, genre = genre, status = status,comic = comic,image = image)
+	return render_template("comicHome.html",iss = iss, issName = issName, genre = genre, status = status,comic = comic,image = image,comicName = comicName)
 @app.route('/<comic>/<issue>/')
 def readComic(comic,issue,arr = None):
 	comic = comic.replace(" ","-")

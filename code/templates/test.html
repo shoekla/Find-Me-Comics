@@ -21,19 +21,41 @@
     </head>
     <body>
     <div style="background-color:teal">
-        <header id="header" class="media">
+      
+<header id="header" class="media">
             <div class="pull-left h-logo">
                 <a href="/" class="hidden-xs">
-                    Find Me  
+                   Find Me
                     <small>Comics</small>
                 </a>
-             
+                
+                <div class="menu-collapse" data-ma-action="sidebar-open" data-ma-target="main-menu">
+                    <div class="mc-wrap">
+                        <div class="mcw-line top palette-White bg"></div>
+                        <div class="mcw-line center palette-White bg"></div>
+                        <div class="mcw-line bottom palette-White bg"></div>
+                    </div>
+                </div>
             </div>
 
-  
+            <ul class="pull-right h-menu">
+                <li class="hm-search-trigger">
+                    <button class="btn btn-primary btn-icon"><i class="zmdi zmdi-home"></i></button>
+                </li>
+                
+               
+                <li class="dropdown hm-profile">
+                    <a data-toggle="dropdown" href="/myComics">
+                        <img src="{{ url_for('static', filename='yourComics.png')}}" alt="">
+                    </a>
+                    
+                  
+                </li>
+            </ul>
             
             <div class="media-body h-search">
-                 <form action="/" method="POST" class="p-relative">
+                
+                  <form action="/" method="POST" class="p-relative">
                     <input type="text" name="name" class="hs-input" placeholder="Search for specific comic" autocomplete="off">
                    
                 </form>
@@ -81,6 +103,13 @@
             </div>
         </div>
         -->
+        
+
+
+            <script src="{{ url_for('static', filename='jquery.min.js')}}"></script>
+            /
+            <script src="{{ url_for('static', filename='waves.min.js')}}"></script>
+            <script src="{{ url_for('static', filename='functions.js')}}"></script>
        
 
     </body>

@@ -24,10 +24,9 @@
 
 
 
-
 <header id="header" class="media">
             <div class="pull-left h-logo">
-                <a href="index.html" class="hidden-xs">
+                <a href="/" class="hidden-xs">
                    Find Me
                     <small>Comics</small>
                 </a>
@@ -48,7 +47,7 @@
                 
                
                 <li class="dropdown hm-profile">
-                    <a data-toggle="dropdown" href="">
+                    <a data-toggle="dropdown" href="/myComics">
                         <img src="{{ url_for('static', filename='yourComics.png')}}" alt="">
                     </a>
                     
@@ -76,9 +75,16 @@
                 <div class="container">
                 
                     <h2><u>Your Comics</u></h2>
-                       {% for url in pop%}
+                       {% for url in popA%}
 
-                         <a href="/{{url}}"> <img src="{{images[pop.index(url)]}}"/></a>
+               <div class="col-sm-4">
+<br/>
+                         <a href="/{{url}}"> <img src="{{images[popA.index(url)]}}" style="width:270px;height:400px"/></a>
+<br/><br/>
+                <a href="/removeComic/{{url}}/">   <button class="btn btn-danger" style="width:100%">Remove Comic</button></a>
+                
+  
+</div>
     {% endfor %}
                    </div> 
             </section>
@@ -101,6 +107,12 @@
             <script src="vendors/bower_components/jquery-placeholder/jquery.placeholder.min.js"></script>
         <![endif]-->
 
+
+
+            <script src="{{ url_for('static', filename='jquery.min.js')}}"></script>
+            /
+            <script src="{{ url_for('static', filename='waves.min.js')}}"></script>
+            <script src="{{ url_for('static', filename='functions.js')}}"></script>
 
     </body>
   </html>

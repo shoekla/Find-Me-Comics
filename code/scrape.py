@@ -13,10 +13,9 @@ from firebase import firebase
 
 firebase = firebase.FirebaseApplication('https://findmecomics.firebaseio.com/', None)
 userName = ""
+myComics = []
 
-def setUserName(name):
-    global userName    # Needed to modify global copy of globvar
-    userName = name
+
 
 def is_in_arr(lis,s):
 	result=False
@@ -270,7 +269,18 @@ def addComic(email,comic):
 	b = eval(getResp("Comics"))
 	for i in range(0,len(users)):
 		if users[i] == email:
-			b[i].append(comic)
+			if comic not in b[i]:
+				b[i].append(comic)
+	firebase.delete('Comics',None)
+	firebase.post("Comics",str(b))
+def removeComic(email,comic):
+	print "Logging In"
+	users = eval(getResp("Users"))
+	b = eval(getResp("Comics"))
+	for i in range(0,len(users)):
+		if users[i] == email:
+			if comic in b[i]:
+				b[i].remove(comic)
 	firebase.delete('Comics',None)
 	firebase.post("Comics",str(b))
 def getMyComics(email):
@@ -282,6 +292,11 @@ def getMyComics(email):
 			print "Moments"
 			return b[i]
 	print "Log"
+def setUserName(name):
+    global userName 
+    global myComics   # Needed to modify global copy of globvar
+    userName = name
+    myComics = getMyComics(name)
 #addUser("abirshukla1@gmail.com","aadi2247")
 #print getIssueName("http://www.readcomics.net/harley-quinn/chapter-26")
 
