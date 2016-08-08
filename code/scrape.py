@@ -14,6 +14,7 @@ from firebase import firebase
 firebase = firebase.FirebaseApplication('https://findmecomics.firebaseio.com/', None)
 userName = ""
 myComics = []
+comicList = []
 
 
 
@@ -23,6 +24,7 @@ def is_in_arr(lis,s):
 		if item==s:
 			result=True
 	return result
+
 def deleteDuplicates(lis):
 	newLis=[]
 	for item in lis:
@@ -297,6 +299,36 @@ def setUserName(name):
     global myComics   # Needed to modify global copy of globvar
     userName = name
     myComics = getMyComics(name)
+def setComicList(arr):
+	global comicList
+	comicList = []
+	comicList = arr
+def getNext(arr,iss,comic):
+	if len(arr) == 0:
+		iss = getIssuse(comic)
+		issName = []
+		for i in iss:
+			issName.append(getIssueName(i))
+		setComicList(issName)
+	print "Enter Next"
+	for i in range(0,len(arr)):
+		print "Arr: "+str(arr[i])
+		if str(arr[i]) == str(iss):
+			if i < len(arr) - 1:
+				return str(arr[i+1])
+			else:
+				return "no"
+	return "no"
+def getPrev(arr,iss):
+	for i in range(0,len(arr)):
+		if str(arr[i]) == str(iss):
+			if i != 0:
+				return str(arr[i-1])
+			else:
+				return "no"
+	return "no"
+
+
 #addUser("abirshukla1@gmail.com","aadi2247")
 #print getIssueName("http://www.readcomics.net/harley-quinn/chapter-26")
 

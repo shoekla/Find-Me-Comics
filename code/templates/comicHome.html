@@ -6,6 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Find Me Comics</title>
+   <link rel="icon" href="{{ url_for('static', filename='yourComics.png')}}">
 
         <!-- Vendor CSS -->
         <link href="{{ url_for('static', filename='fullcalendar.min.css')}}" rel="stylesheet">
@@ -24,7 +25,7 @@
        
 <header id="header" class="media">
             <div class="pull-left h-logo">
-                <a href="/" class="hidden-xs">
+                <a href="/popularComics" class="hidden-xs">
                    Find Me
                     <small>Comics</small>
                 </a>
@@ -69,7 +70,7 @@
 
                 <div class="container">
                 <div class="pull-left">
-                        <img src="{{image}}" style="height:400px;width:350px" />
+                       <a href="/{{comic}}"> <img src="{{image}}" style="height:400px;width:350px" /></a>
                         <br/><br/>
                      <a href="/addComic/{{comicName}}/">   <button class="btn btn-primary" style="width:100%">Add to My Comics</button></a>
 
@@ -79,11 +80,16 @@
                      <h2><u>{{comic}}</u></h2>
                     <h3>{{status}}</h3>
                     <h3>{{genre}}</h3>
-                   <h3><u>Issues:</u></h3>
+                   <h3><u>Issues (Scroll For More):</u></h3>
           
+          <div id="" style="overflow-y: scroll; height:300px;width:300px;" >
+        
                     {% for url in issName %}
-    <h5><a href="/{{comic}}/{{url}}/">{{comic}} issue: {{url}}</a>
+    <h4><a href="/{{comic}}/{{url}}/">{{comic}} Issue: {{url}}</a></h4>
     {% endfor %}
+
+    </div>
+
                     
              </div>
              <br/><br/>

@@ -6,6 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Find Me Comics</title>
+   <link rel="icon" href="{{ url_for('static', filename='yourComics.png')}}">
 
         <!-- Vendor CSS -->
         <link href="{{ url_for('static', filename='fullcalendar.min.css')}}" rel="stylesheet">
@@ -26,7 +27,7 @@
 
 <header id="header" class="media">
             <div class="pull-left h-logo">
-                <a href="/" class="hidden-xs">
+                <a href="/popularComics" class="hidden-xs">
                    Find Me
                     <small>Comics</small>
                 </a>
@@ -80,7 +81,8 @@
                <div class="col-sm-4">
 <br/>
                          <a href="/{{url}}"> <img src="{{images[popA.index(url)]}}" style="width:270px;height:400px"/></a>
-<br/><br/>
+                           <br/><center><h5>{{url.replace("-"," ").title()}}</h5></center>
+
                 <a href="/removeComic/{{url}}/">   <button class="btn btn-danger" style="width:100%">Remove Comic</button></a>
                 
   

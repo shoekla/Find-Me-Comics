@@ -13,22 +13,26 @@ app = Flask(__name__)
 @app.route('/')
 def Home(popA = None, images = None,pop = None,name = None):
 	if scrape.userName != "":
-		popA = None
-		popA = []
-		name = None
-		name = ""
-		name = scrape.userName
-		images = None
-		images = []
-		pop = None
-		pop = []
-		popA = scrape.getPop()
-		for i in popA:
-			images.append(scrape.getPic(i))
-			pop.append(scrape.getHomeLink(i))
-		return render_template("home.html",pop = pop,images = images,name=name)
+		return redirect("/myComics")
 	else:	
 		return render_template("login.html")
+@app.route('/popularComics')
+def popluarComcis(popA = None, images = None,pop = None,name = None):
+	popA = None
+	popA = []
+	name = None
+	name = ""
+	name = scrape.userName
+	images = None
+	images = []
+	pop = None
+	pop = []
+	popA = scrape.getPop()
+	for i in popA:
+		images.append(scrape.getPic(i))
+		pop.append(scrape.getHomeLink(i))
+	return render_template("home.html",pop = pop,images = images,name=name)
+
 @app.route('/FindMeComicUser',methods=['POST'])
 def signIn(email= None,passW=None):
 	print "Sign"
@@ -41,7 +45,7 @@ def signIn(email= None,passW=None):
 	scrape.setUserName(email)
 	print "Sign2"
 	if scrape.loginUser(email,passW):
-		return redirect("/")
+		return redirect("/myComics")
 	else:
 		return render_template("login.html",mess="Invalid Login Credentials")
 @app.route('/AddComicUser',methods=['POST'])
@@ -152,6 +156,8 @@ def comicHome(comic,genre = None,iss=None, issName = None,status=None,image = No
 	iss = scrape.getIssuse(comic)
 	for i in iss:
 		issName.append(scrape.getIssueName(i))
+	if len(issName) == 0:
+		issName = scrape.comicList
 	genre = scrape.getGenre(comic)
 	status = scrape.getStatus(comic)
 	comicName = comic
@@ -160,14 +166,42 @@ def comicHome(comic,genre = None,iss=None, issName = None,status=None,image = No
 	image = None
 	image = ""
 	image = scrape.getPicFromName(comic)
+	scrape.setComicList(issName)
+	for i in scrape.comicList:
+		print "Comic List: "+i
 	return render_template("comicHome.html",iss = iss, issName = issName, genre = genre, status = status,comic = comic,image = image,comicName = comicName)
 @app.route('/<comic>/<issue>/')
-def readComic(comic,issue,arr = None):
+def readComic(comic,issue,arr = None,name=None,nextB = None,prev = None):
+	print "Issue Read: "+issue
 	comic = comic.replace(" ","-")
 	arr = None
 	arr = []
+	name = None
+	name = ""
+	nextB = None
+	nextB = ""
+	prev = None
+	prev = ""
+	print "Just Making Sure"
+	nextB = scrape.getNext(scrape.comicList,issue,comic)
+	print "Next Good"
+	prev = scrape.getPrev(scrape.comicList,issue)
+	print "Got Prev and Next"
 	arr = scrape.crawlComicPages("http://www.readcomics.tv/"+comic+"/chapter-"+issue+"/full")
-	return render_template("comic.html",arr=arr)
+	print "Crawled Images"
+	name = comic.replace("-"," ").title()
+	return render_template("comic.html",arr=arr,issue=issue,comic=comic,name = name,nextB = nextB,prev = prev)
+@app.route('/print/<comic>/<issue>/')
+def printComic(comic,issue,arr = None,name=None):
+	print "Issue Read: "+issue
+	comic = comic.replace(" ","-")
+	arr = None
+	arr = []
+	name = None
+	name = ""
+	arr = scrape.crawlComicPages("http://www.readcomics.tv/"+comic+"/chapter-"+issue+"/full")
+	name = comic.replace("-"," ").title()
+	return render_template("print.html",arr=arr,issue=issue,comic=comic,name = name)
 
 if __name__ == '__main__':
     app.run()

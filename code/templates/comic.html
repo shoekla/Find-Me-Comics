@@ -4,6 +4,13 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="{{url_for('static', filename='js/turn.min.js')}}"></script>
 
+   <link rel="icon" href="{{ url_for('static', filename='yourComics.png')}}">
+<title>{{name}} #{{issue}}</title>
+        <!-- Vendor CSS -->
+        
+        <!-- CSS -->
+        <link href="{{ url_for('static', filename='css/app.min.1.css')}}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/app.min.2.css')}}" rel="stylesheet"> 
 <style type="text/css">
 body{
 	background:#ccc;
@@ -20,6 +27,74 @@ body{
 </head>
 <body>
 <center>
+<header id="header" class="media">
+{% if prev == "no" and nextB != "no" %}
+<a href="/{{comic}}" class="hidden-xs">
+ <button class="btn btn-info"> {{name}} Home</button>
+</a>
+
+ <a href="/print/{{comic}}/{{issue}}" class="hidden-xs"><button class="btn btn-warning"><img src="{{ url_for('static', filename='printer.png')}}" style="height:20px;width:20px"/> Print</button></a>
+
+
+
+  <a href="/{{comic}}/{{nextB}}" class="hidden-xs">
+ <button class="btn btn-success">Next <img src="{{ url_for('static', filename='arrow-right.png')}}" style="height:20px;width:20px" /></button>
+</a>
+
+
+
+{% endif %}
+
+{% if nextB == "no" and prev != "no" %}
+
+<a href="/{{comic}}/{{prev}}" class="hidden-xs">
+ <button class="btn btn-primary"><img src="{{ url_for('static', filename='arrow-left.png')}}" style="height:20px;width:20px" /> Prev.</button>
+ </a>
+
+
+ <a href="/print/{{comic}}/{{issue}}" class="hidden-xs"><button class="btn btn-warning"><img src="{{ url_for('static', filename='printer.png')}}" style="height:20px;width:20px"/> Print</button></a>
+
+
+<a href="/{{comic}}" class="hidden-xs">
+ <button class="btn btn-info"> {{name}} Home</button>
+</a>
+
+{% endif %}
+
+{% if nextB == "no" and prev == "no" %}
+
+
+
+ <a href="/print/{{comic}}/{{issue}}" class="hidden-xs"><button class="btn btn-warning"><img src="{{ url_for('static', filename='printer.png')}}" style="height:20px;width:20px"/> Print</button></a>
+
+
+<a href="/{{comic}}" class="hidden-xs">
+ <button class="btn btn-info"> {{name}} Home</button>
+</a>
+
+
+{% endif %}
+
+{% if nextB != "no" and prev != "no" %}
+<a href="/{{comic}}/{{prev}}" class="hidden-xs">
+ <button class="btn btn-primary"><img src="{{ url_for('static', filename='arrow-left.png')}}" style="height:20px;width:20px" /> Prev.</button>
+ </a>
+
+
+ <a href="/print/{{comic}}/{{issue}}" class="hidden-xs"><button class="btn btn-warning"><img src="{{ url_for('static', filename='printer.png')}}" style="height:20px;width:20px"/> Print</button></a>
+
+
+
+  <a href="/{{comic}}/{{nextB}}" class="hidden-xs">
+ <button class="btn btn-success">Next <img src="{{ url_for('static', filename='arrow-right.png')}}" style="height:20px;width:20px" /></button>
+</a>
+
+
+
+
+{% endif %}
+</header>
+<hr/>
 <div id="magazine">
 {% for url in arr %}
 	<div style="background-image:url({{url}});"></div>
@@ -54,6 +129,7 @@ body{
 	});
 
 </script>
+
 
 </body>
 </html>
