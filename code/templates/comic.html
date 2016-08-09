@@ -29,10 +29,9 @@ body{
 <center>
 <header id="header" class="media">
 {% if prev == "no" and nextB != "no" %}
-<a href="/{{comic}}" class="hidden-xs">
- <button class="btn btn-info"> {{name}} Home</button>
-</a>
 
+ <button class="btn"><img src="{{ url_for('static', filename='arrow-left.png')}}" style="height:20px;width:20px" /> Prev.</button>
+ 
  <a href="/print/{{comic}}/{{issue}}" class="hidden-xs"><button class="btn btn-warning"><img src="{{ url_for('static', filename='printer.png')}}" style="height:20px;width:20px"/> Print</button></a>
 
 
@@ -41,7 +40,13 @@ body{
  <button class="btn btn-success">Next <img src="{{ url_for('static', filename='arrow-right.png')}}" style="height:20px;width:20px" /></button>
 </a>
 
+<br/>
+<br/><center>
 
+<a href="/{{comic}}" class="hidden-xs">
+ <button class="btn btn-info"> {{name}} Home</button>
+</a>
+</center>
 
 {% endif %}
 
@@ -54,24 +59,29 @@ body{
 
  <a href="/print/{{comic}}/{{issue}}" class="hidden-xs"><button class="btn btn-warning"><img src="{{ url_for('static', filename='printer.png')}}" style="height:20px;width:20px"/> Print</button></a>
 
-
+ <button class="btn">Next <img src="{{ url_for('static', filename='arrow-right.png')}}" style="height:20px;width:20px" /></button>
+<br/><br/><center>
 <a href="/{{comic}}" class="hidden-xs">
  <button class="btn btn-info"> {{name}} Home</button>
 </a>
+</center>
 
 {% endif %}
 
 {% if nextB == "no" and prev == "no" %}
 
-
+<button class="btn"><img src="{{ url_for('static', filename='arrow-left.png')}}" style="height:20px;width:20px" /> Prev.</button>
+ 
 
  <a href="/print/{{comic}}/{{issue}}" class="hidden-xs"><button class="btn btn-warning"><img src="{{ url_for('static', filename='printer.png')}}" style="height:20px;width:20px"/> Print</button></a>
+  <button class="btn">Next <img src="{{ url_for('static', filename='arrow-right.png')}}" style="height:20px;width:20px" /></button>
 
+<br/><center>
 
 <a href="/{{comic}}" class="hidden-xs">
  <button class="btn btn-info"> {{name}} Home</button>
 </a>
-
+</center>
 
 {% endif %}
 
@@ -88,7 +98,10 @@ body{
   <a href="/{{comic}}/{{nextB}}" class="hidden-xs">
  <button class="btn btn-success">Next <img src="{{ url_for('static', filename='arrow-right.png')}}" style="height:20px;width:20px" /></button>
 </a>
-
+<br/><br/><center>
+<a href="/{{comic}}" class="hidden-xs">
+ <button class="btn btn-info"> {{name}} Home</button>
+</a>
 
 
 

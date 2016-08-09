@@ -159,6 +159,8 @@ def comicHome(comic,genre = None,iss=None, issName = None,status=None,image = No
 	if len(issName) == 0:
 		issName = scrape.comicList
 	genre = scrape.getGenre(comic)
+	genre = genre.replace(" ,",",")
+	genre = genre.replace(",",", ")
 	status = scrape.getStatus(comic)
 	comicName = comic
 	comic = comic.replace("-"," ")
