@@ -294,6 +294,18 @@ def getMyComics(email):
 			print "Moments"
 			return b[i]
 	print "Log"
+def checkComicInList(email,com):
+	print "Logging In"
+	users = eval(getResp("Users"))
+	b = eval(getResp("Comics"))
+	for i in range(0,len(users)):
+		if users[i] == email:
+			print "Moments"
+			if com in b[i]:
+				return "yes"
+			else:
+				return "no"
+	print "Log"
 def setUserName(name):
     global userName 
     global myComics   # Needed to modify global copy of globvar

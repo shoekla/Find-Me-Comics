@@ -72,7 +72,15 @@
                 <div class="pull-left">
                        <a href="/{{comic}}"> <img src="{{image}}" style="height:400px;width:350px" /></a>
                         <br/><br/>
+
+
+
+{% if com == "no"%}
                      <a href="/addComic/{{comicName}}/">   <button class="btn btn-primary" style="width:100%">Add to My Comics</button></a>
+{% endif %}
+{% if com == "yes"%}
+             <button class="btn" style="width:100%">Add to My Comics</button></a>
+{% endif %}
 
                 </div>
 

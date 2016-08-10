@@ -141,7 +141,7 @@ def testPage(s =None):
 	return render_template("test.html",s=s)
 
 @app.route('/<comic>/')
-def comicHome(comic,genre = None,iss=None, issName = None,status=None,image = None,comicName = None):
+def comicHome(comic,genre = None,iss=None, issName = None,status=None,image = None,comicName = None,com = None):
 	status = None
 	status = ""
 	genre = None
@@ -151,8 +151,11 @@ def comicHome(comic,genre = None,iss=None, issName = None,status=None,image = No
 	issName = None
 	comicName = None
 	comicName = ""
+	com = None
+	com = ""
 	issName = []
 	comic = comic.replace(" ","-")
+	com = scrape.checkComicInList(scrape.userName,comic)
 	iss = scrape.getIssuse(comic)
 	for i in iss:
 		issName.append(scrape.getIssueName(i))
@@ -171,7 +174,7 @@ def comicHome(comic,genre = None,iss=None, issName = None,status=None,image = No
 	scrape.setComicList(issName)
 	for i in scrape.comicList:
 		print "Comic List: "+i
-	return render_template("comicHome.html",iss = iss, issName = issName, genre = genre, status = status,comic = comic,image = image,comicName = comicName)
+	return render_template("comicHome.html",iss = iss, issName = issName, genre = genre, status = status,comic = comic,image = image,comicName = comicName,com = com)
 @app.route('/<comic>/<issue>/')
 def readComic(comic,issue,arr = None,name=None,nextB = None,prev = None):
 	print "Issue Read: "+issue
