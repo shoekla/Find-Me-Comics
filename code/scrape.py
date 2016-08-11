@@ -15,7 +15,8 @@ firebase = firebase.FirebaseApplication('https://findmecomics.firebaseio.com/', 
 userName = ""
 myComics = []
 comicList = []
-
+pop = []
+images = []
 
 
 def is_in_arr(lis,s):
@@ -183,15 +184,20 @@ def getPicFromName(name):
 		href=link.get('src')
 		href_test=str(href)
 		if "logo" not in href_test:
+			global images
+			images.append(href)
 			return href
 def getPic(url):
 	index = url.find("/" , url.find(".tv"))
 	index2 = url.find("/",index+1)
+	
 	return getPicFromName(url[index+1:index2])
 def getHomeLink(url):
 	index = url.find(".tv/")
 	index2 = url.find("/",index+5)
 	rea = url[index+4:index2]
+	global pop
+	pop.append(rea)
 	return rea
 def searchComic(name):
 	arr = []

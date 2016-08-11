@@ -18,6 +18,8 @@ def Home(popA = None, images = None,pop = None,name = None):
 		return render_template("login.html")
 @app.route('/popularComics')
 def popluarComcis(popA = None, images = None,pop = None,name = None):
+	if len(scrape.pop) != 0:
+		return render_template("home.html",pop = scrape.pop,images = scrape.images,name=scrape.userName)
 	popA = None
 	popA = []
 	name = None
@@ -31,6 +33,8 @@ def popluarComcis(popA = None, images = None,pop = None,name = None):
 	for i in popA:
 		images.append(scrape.getPic(i))
 		pop.append(scrape.getHomeLink(i))
+	for i in scrape.images:
+		print "Image: "+i
 	return render_template("home.html",pop = pop,images = images,name=name)
 
 @app.route('/FindMeComicUser',methods=['POST'])
@@ -45,7 +49,7 @@ def signIn(email= None,passW=None):
 	scrape.setUserName(email)
 	print "Sign2"
 	if scrape.loginUser(email,passW):
-		return redirect("/myComics")
+		return redirect("/")
 	else:
 		return render_template("login.html",mess="Invalid Login Credentials")
 @app.route('/AddComicUser',methods=['POST'])
@@ -142,6 +146,8 @@ def testPage(s =None):
 
 @app.route('/<comic>/')
 def comicHome(comic,genre = None,iss=None, issName = None,status=None,image = None,comicName = None,com = None):
+	if scrape.userName == "":
+		return render_template("login.html")
 	status = None
 	status = ""
 	genre = None
