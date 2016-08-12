@@ -9,9 +9,13 @@ import scrape
 import os
 import sendMail
 app = Flask(__name__)
-
+userN = ""
 @app.route('/')
 def Home(popA = None, images = None,pop = None,name = None):
+	if str(request.remote_addr) not in scrape.ips:
+		#print "Ips: "+scrape.ips
+		return render_template("login.html")
+
 	if scrape.userName != "":
 		return redirect("/myComics")
 	else:	
@@ -49,6 +53,10 @@ def signIn(email= None,passW=None):
 	scrape.setUserName(email)
 	print "Sign2"
 	if scrape.loginUser(email,passW):
+		global userN
+		userN = email
+		scrape.addIp(str(request.remote_addr))
+		#print "Ips: "+scrape.ips
 		return redirect("/")
 	else:
 		return render_template("login.html",mess="Invalid Login Credentials")
@@ -67,7 +75,9 @@ def signUp(email= None,passW=None):
 	else:
 		scrape.addUser(email,passW)
 		return render_template("login.html",mess="You Were added! Please Sign in")
-		
+@app.route("/ip/")
+def getip():
+	return str(request.remote_addr)
 @app.route('/emailUser',methods=['POST'])
 def forgotEmail(email=None,passW=None):
 	print "Sign"
@@ -84,12 +94,12 @@ def forgotEmail(email=None,passW=None):
 @app.route('/myComics')
 def myComicHome(popA = None,images = None,pop = None,name=None):
 	print "Enter Methid"
-	if scrape.userName != "":
+	if userN != "":
 		popA = None
 		popA = []
 		name = None
 		name = ""
-		name = scrape.userName
+		name = userN
 		images = None
 		images = []
 		pop = None
@@ -214,5 +224,14 @@ def printComic(comic,issue,arr = None,name=None):
 	name = comic.replace("-"," ").title()
 	return render_template("print.html",arr=arr,issue=issue,comic=comic,name = name)
 
+@app.route('/logout/')
+def logoutUser():
+	scrape.logout(str(request.remote_addr))
+	print "Ips: "+scrape.ips
+	global userN 
+	userN = ""
+	return redirect("/")
 if __name__ == '__main__':
-    app.run()
+	app.run()
+
+

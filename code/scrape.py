@@ -17,7 +17,16 @@ myComics = []
 comicList = []
 pop = []
 images = []
-
+ips = []
+def addIp(ip):
+	global ips
+	ips.append(str(ip))
+def logout(ip):
+ 	global userName
+ 	global ips
+ 	if str(ip) in ips:
+ 		ips.remove(str(ip))
+ 	userName = ""
 
 def is_in_arr(lis,s):
 	result=False
