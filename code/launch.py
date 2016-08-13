@@ -20,6 +20,8 @@ def Home(popA = None, images = None,pop = None,name = None):
 		return redirect("/myComics")
 	else:	
 		return render_template("login.html")
+
+
 @app.route('/popularComics')
 def popluarComcis(popA = None, images = None,pop = None,name = None):
 	if len(scrape.pop) != 0:
