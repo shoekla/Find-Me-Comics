@@ -29,79 +29,103 @@ body{
 <center>
 <header id="header" class="media">
 {% if prev == "no" and nextB != "no" %}
-
+<p style="display: inline">
  <button class="btn"><img src="{{ url_for('static', filename='arrow-left.png')}}" style="height:20px;width:20px" /> Prev.</button>
  
  <a href="/print/{{comic}}/{{issue}}" class="hidden-xs"><button class="btn btn-warning"><img src="{{ url_for('static', filename='printer.png')}}" style="height:20px;width:20px"/> Print</button></a>
 
+ <form action="/{{comic}}/{{nextB}}/" method="POST" class="p-relative" style="display: inline-block;">
+                            <input type="hidden" name="user" value="{{user}}">
 
+ <button class="btn btn-success" alt="Submit">Next <img src="{{ url_for('static', filename='arrow-right.png')}}" style="height:20px;width:20px" /></button>
 
-  <a href="/{{comic}}/{{nextB}}" class="hidden-xs">
- <button class="btn btn-success">Next <img src="{{ url_for('static', filename='arrow-right.png')}}" style="height:20px;width:20px" /></button>
-</a>
-
+</form>
+</p>
 <br/>
 <br/><center>
 
-<a href="/{{comic}}" class="hidden-xs">
- <button class="btn btn-info"> {{name}} Home</button>
-</a>
+ <form action="/{{comic}}/" method="POST" class="p-relative">
+                            <input type="hidden" name="user" value="{{user}}">
+
+ <button alt="Submit" class="btn btn-info"> {{name}} Home</button>
+</form>
 </center>
 
 {% endif %}
 
+
+
 {% if nextB == "no" and prev != "no" %}
 
-<a href="/{{comic}}/{{prev}}" class="hidden-xs">
- <button class="btn btn-primary"><img src="{{ url_for('static', filename='arrow-left.png')}}" style="height:20px;width:20px" /> Prev.</button>
- </a>
+<p style="display: inline">
+ <form action="/{{comic}}/{{prev}}/" method="POST" class="p-relative" style="display: inline-block;">
+<input type="hidden" name="user" value="{{user}}">
+ <button class="btn btn-primary" alt="Submit"><img src="{{ url_for('static', filename='arrow-left.png')}}" style="height:20px;width:20px" /> Prev.</button>
 
+</form>
 
  <a href="/print/{{comic}}/{{issue}}" class="hidden-xs"><button class="btn btn-warning"><img src="{{ url_for('static', filename='printer.png')}}" style="height:20px;width:20px"/> Print</button></a>
 
  <button class="btn">Next <img src="{{ url_for('static', filename='arrow-right.png')}}" style="height:20px;width:20px" /></button>
 <br/><br/><center>
-<a href="/{{comic}}" class="hidden-xs">
- <button class="btn btn-info"> {{name}} Home</button>
-</a>
-</center>
 
+ <form action="/{{comic}}/" method="POST" class="p-relative">
+                            <input type="hidden" name="user" value="{{user}}">
+
+ <button alt="Submit" class="btn btn-info"> {{name}} Home</button>
+</form>
+</center>
+</p>
 {% endif %}
 
 {% if nextB == "no" and prev == "no" %}
-
+<p style="display: inline">
 <button class="btn"><img src="{{ url_for('static', filename='arrow-left.png')}}" style="height:20px;width:20px" /> Prev.</button>
  
 
  <a href="/print/{{comic}}/{{issue}}" class="hidden-xs"><button class="btn btn-warning"><img src="{{ url_for('static', filename='printer.png')}}" style="height:20px;width:20px"/> Print</button></a>
   <button class="btn">Next <img src="{{ url_for('static', filename='arrow-right.png')}}" style="height:20px;width:20px" /></button>
 
-<br/><center>
+<br/>
+</p><center>
 
-<a href="/{{comic}}" class="hidden-xs">
- <button class="btn btn-info"> {{name}} Home</button>
-</a>
+
+ <form action="/{{comic}}/" method="POST" class="p-relative">
+                            <input type="hidden" name="user" value="{{user}}">
+
+ <button alt="Submit" class="btn btn-info"> {{name}} Home</button>
+</form>
+
 </center>
 
 {% endif %}
 
 {% if nextB != "no" and prev != "no" %}
-<a href="/{{comic}}/{{prev}}" class="hidden-xs">
- <button class="btn btn-primary"><img src="{{ url_for('static', filename='arrow-left.png')}}" style="height:20px;width:20px" /> Prev.</button>
- </a>
+<p style="display: inline">
+ <form action="/{{comic}}/{{prev}}/" method="POST" class="p-relative" style="display: inline-block;">
+<input type="hidden" name="user" value="{{user}}">
+ <button class="btn btn-primary" alt="Submit"><img src="{{ url_for('static', filename='arrow-left.png')}}" style="height:20px;width:20px" /> Prev.</button>
+
+</form>
 
 
  <a href="/print/{{comic}}/{{issue}}" class="hidden-xs"><button class="btn btn-warning"><img src="{{ url_for('static', filename='printer.png')}}" style="height:20px;width:20px"/> Print</button></a>
 
 
+ <form action="/{{comic}}/{{nextB}}/" method="POST" class="p-relative" style="display: inline-block;">
+                            <input type="hidden" name="user" value="{{user}}">
 
-  <a href="/{{comic}}/{{nextB}}" class="hidden-xs">
- <button class="btn btn-success">Next <img src="{{ url_for('static', filename='arrow-right.png')}}" style="height:20px;width:20px" /></button>
-</a>
+ <button class="btn btn-success" alt="Submit">Next <img src="{{ url_for('static', filename='arrow-right.png')}}" style="height:20px;width:20px" /></button>
+
+</form>
+</p>
 <br/><br/><center>
-<a href="/{{comic}}" class="hidden-xs">
- <button class="btn btn-info"> {{name}} Home</button>
-</a>
+
+ <form action="/{{comic}}/" method="POST" class="p-relative">
+                            <input type="hidden" name="user" value="{{user}}">
+
+ <button alt="Submit" class="btn btn-info"> {{name}} Home</button>
+</form>
 
 
 

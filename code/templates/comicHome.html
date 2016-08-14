@@ -23,12 +23,15 @@
     <body>
     <div style="background-color:teal">
        
+
 <header id="header" class="media">
             <div class="pull-left h-logo">
-                <a href="/popularComics" class="hidden-xs">
-                   Find Me
-                    <small>Comics</small>
-                </a>
+                      <form action="/popularComics" method="POST">
+                        <input type="hidden" name="user" value="{{name}}">
+                          <input type="image" src="{{ url_for('static', filename='pop.png')}}" alt="Submit" width="48" height="48">
+                  
+               
+                </form>
                 
                 <div class="menu-collapse" data-ma-action="sidebar-open" data-ma-target="main-menu">
                     <div class="mc-wrap">
@@ -46,9 +49,12 @@
                 
                
                 <li class="dropdown hm-profile">
-                    <a data-toggle="dropdown" href="/myComics">
-                        <img src="{{ url_for('static', filename='yourComics.png')}}" alt="">
-                    </a>
+<form action="/myComics" method="POST">
+                        <input type="hidden" name="user" value="{{name}}">
+                        <input type="image" src="{{ url_for('static', filename='yourComics.png')}}" alt="Submit" width="48" height="48">
+                  
+                </form>
+             
                     
                   
                 </li>
@@ -56,27 +62,31 @@
             
             <div class="media-body h-search">
                 
-                  <form action="/" method="POST" class="p-relative">
+                  <form action="/search/" method="POST" class="p-relative">
                     <input type="text" name="name" class="hs-input" placeholder="Search for specific comic" autocomplete="off">
+                     <input type="hidden" name="user" value="{{name}}">
                    
                 </form>
             </div>
             
         </header>
+
 </div>
         <section id="main">
         
             <section id="content">
 
                 <div class="container">
-                <div class="pull-left">
-                       <a href="/{{comic}}"> <img src="{{image}}" style="height:400px;width:350px" /></a>
+                <div class="pull-left"> <img src="{{image}}" style="height:400px;width:350px" />
                         <br/><br/>
 
 
 
 {% if com == "no"%}
-                     <a href="/addComic/{{comicName}}/">   <button class="btn btn-primary" style="width:100%">Add to My Comics</button></a>
+   <form action="/addComic/{{comicName}}/" method="POST">
+    <input type="hidden" name="user" value="{{name}}">
+                      <button class="btn btn-primary"  alt="Submit" style="width:100%">Add to My Comics</button>
+                      </form>
 {% endif %}
 {% if com == "yes"%}
              <button class="btn" style="width:100%">Add to My Comics</button></a>
@@ -93,7 +103,11 @@
           <div id="" style="overflow-y: scroll; height:300px;width:300px;" >
         
                     {% for url in issName %}
-    <h4><a href="/{{comic}}/{{url}}/">{{comic}} Issue: {{url}}</a></h4>
+                     <form action="/{{comic}}/{{url}}/" method="POST">
+    <input type="hidden" name="user" value="{{name}}"> 
+    <h4>{{comic}} Issue: {{url}} <input type="image" src="{{ url_for('static', filename='book.png')}}" alt="Submit" width="20" height="20"></h4>
+
+    </form>
     {% endfor %}
 
     </div>

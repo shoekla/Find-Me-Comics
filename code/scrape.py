@@ -12,21 +12,11 @@ import os
 from firebase import firebase
 
 firebase = firebase.FirebaseApplication('https://findmecomics.firebaseio.com/', None)
-userName = ""
+
 myComics = []
 comicList = []
 pop = []
 images = []
-ips = []
-def addIp(ip):
-	global ips
-	ips.append(str(ip))
-def logout(ip):
- 	global userName
- 	global ips
- 	if str(ip) in ips:
- 		ips.remove(str(ip))
- 	userName = ""
 
 def is_in_arr(lis,s):
 	result=False
@@ -321,11 +311,7 @@ def checkComicInList(email,com):
 			else:
 				return "no"
 	print "Log"
-def setUserName(name):
-    global userName 
-    global myComics   # Needed to modify global copy of globvar
-    userName = name
-    myComics = getMyComics(name)
+
 def setComicList(arr):
 	global comicList
 	comicList = []
