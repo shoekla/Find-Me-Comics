@@ -49,7 +49,7 @@
                
                 <li class="dropdown hm-profile">
 <form action="/myComics" method="POST">
-                        <input type="hidden" name="user" value="{{name}}">
+                        <input type="hidden" name="user" value="{{user}}">
                         <input type="image" src="{{ url_for('static', filename='yourComics.png')}}" alt="Submit" width="48" height="48">
                   
                 </form>
@@ -63,7 +63,7 @@
                 
                   <form action="/search/" method="POST" class="p-relative">
                     <input type="text" name="name" class="hs-input" placeholder="Search for specific comic" autocomplete="off">
-                     <input type="hidden" name="user" value="{{name}}">
+                     <input type="hidden" name="user" value="{{user}}">
                    
                 </form>
             </div>

@@ -40,7 +40,6 @@ def signIn(email= None,passW=None,popA = None,images = None,pop = None,name=None
 			images.append(scrape.getPicFromName(i.replace("-"," ").title()))
 		#print "Almost"
 		return render_template("myComics.html",popA = popA,images=images,name = name)
-		return redirect("")
 	else:
 		return render_template("login.html",mess="Invalid Login Credentials")
 @app.route('/search/',methods=['POST'])
@@ -125,8 +124,6 @@ def popluarComcis(popA = None, images = None,pop = None,name = None):
 	name = None
 	name = ""
 	name = request.form['user']
-	if len(scrape.pop) != 0:
-		return render_template("home.html",pop = scrape.pop,images = scrape.images,name=name)
 	popA = None
 	popA = []
 	images = None
@@ -186,6 +183,7 @@ def forgotEmail(email=None,passW=None):
 	if scrape.getPass(email) == "":
 		return render_template("login.html",mess="Email not found :(")
 	else:
+		print "Sending mail"
 		sendMail.sendEmailFromAbir("Password For Find Me Comics", "The password for your Find Me Comics Account is "+scrape.getPass(email)+".",email)
 		return render_template("login.html",mess="Email sent with Password")
 @app.route('/print/<comic>/<issue>/')

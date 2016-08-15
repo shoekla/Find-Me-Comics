@@ -183,8 +183,6 @@ def getPicFromName(name):
 		href=link.get('src')
 		href_test=str(href)
 		if "logo" not in href_test:
-			global images
-			images.append(href)
 			return href
 def getPic(url):
 	index = url.find("/" , url.find(".tv"))
@@ -195,8 +193,6 @@ def getHomeLink(url):
 	index = url.find(".tv/")
 	index2 = url.find("/",index+5)
 	rea = url[index+4:index2]
-	global pop
-	pop.append(rea)
 	return rea
 def searchComic(name):
 	arr = []
@@ -248,6 +244,10 @@ def addUser(email,passW):
 	b.append(passW)
 	firebase.delete('passwords',None)
 	firebase.post("passwords",str(b))
+	comics = eval(getResp("Comics"))
+	comics.append([])
+	firebase.delete('Comics',None)
+	firebase.post("Comics",str(comics))
 def isGood(user):
 	users = eval(getResp("Users"))
 	return user in users
@@ -268,6 +268,7 @@ def getPass(user):
 	b = eval(getResp("passwords"))
 	for i in range(0,len(users)):
 		if users[i] == user:
+			print "User [i] "+str(b[i])
 			return b[i]
 	return ""
 def addComic(email,comic):
