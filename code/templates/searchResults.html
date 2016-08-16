@@ -27,7 +27,7 @@
             <div class="pull-left h-logo">
                       <form action="/popularComics" method="POST">
                         <input type="hidden" name="user" value="{{name}}">
-                          <input type="image" src="{{ url_for('static', filename='pop.png')}}" alt="Submit" width="48" height="48">
+                          <input type="image" src="{{ url_for('static', filename='FindMeComics.png')}}" alt="Submit" width="160" height="80">
                   
                
                 </form>
@@ -78,6 +78,7 @@
                 <div class="container">
                     <h2><u>Search Results for {{name}}</u></h2>
                          {% for url in pop%}
+                         <center>
 <div class="col-sm-4">
                          <br/>
                            <form action="/{{url}}/" method="POST" class="p-relative">
@@ -86,6 +87,7 @@
                          <br/><center><h5>{{url.replace("-"," ").title()}}</h5></center>
                          </form>
                          </div>
+                         </center>
     {% endfor %}
                    </div> 
             </section>

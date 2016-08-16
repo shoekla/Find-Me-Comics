@@ -184,7 +184,7 @@ def forgotEmail(email=None,passW=None):
 		return render_template("login.html",mess="Email not found :(")
 	else:
 		print "Sending mail"
-		sendMail.sendEmailFromAbir("Password For Find Me Comics", "The password for your Find Me Comics Account is "+scrape.getPass(email)+".",email)
+		sendMail.sendMailForComic("Password For Find Me Comics", "The password for your Find Me Comics Account is "+scrape.getPass(email)+".",email)
 		return render_template("login.html",mess="Email sent with Password")
 @app.route('/print/<comic>/<issue>/')
 def printComic(comic,issue,arr = None,name=None):
@@ -223,7 +223,9 @@ def addToMyC(comic,email = None,popA = None,images = None,pop = None):
 	#print "Almost"
 	return render_template("myComics.html",popA = popA,images=images,name = email)
 
-
+@app.route('/t')
+def testes():
+	return render_template("test.html")
 
 @app.route('/<comic>/<issue>/',methods=['POST'])
 def readComic(comic,issue,arr = None,name=None,nextB = None,prev = None,user = None):

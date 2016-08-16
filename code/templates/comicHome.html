@@ -28,7 +28,7 @@
             <div class="pull-left h-logo">
                       <form action="/popularComics" method="POST">
                         <input type="hidden" name="user" value="{{name}}">
-                          <input type="image" src="{{ url_for('static', filename='pop.png')}}" alt="Submit" width="48" height="48">
+                          <input type="image" src="{{ url_for('static', filename='FindMeComics.png')}}" alt="Submit" width="160" height="80">
                   
                
                 </form>
@@ -77,7 +77,7 @@
             <section id="content">
 
                 <div class="container">
-                <div class="pull-left"> <img src="{{image}}" style="height:400px;width:350px" />
+                <div class="pull-left"> <center><img src="{{image}}" style="height:400px;width:350px" />
                         <br/><br/>
 
 
@@ -91,7 +91,7 @@
 {% if com == "yes"%}
              <button class="btn" style="width:100%">Add to My Comics</button></a>
 {% endif %}
-
+</center>
                 </div>
 
                 <div style="position: absolute; left:60%">

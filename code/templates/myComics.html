@@ -29,7 +29,7 @@
             <div class="pull-left h-logo">
                       <form action="/popularComics" method="POST">
                         <input type="hidden" name="user" value="{{name}}">
-                          <input type="image" src="{{ url_for('static', filename='pop.png')}}" alt="Submit" width="48" height="48">
+                          <input type="image" src="{{ url_for('static', filename='FindMeComics.png')}}" alt="Submit" width="160" height="80">
                   
                
                 </form>
@@ -80,14 +80,14 @@
             <section id="content">
 
                 <div class="container">
-                
                     <h2><u>Your Comics</u> <a href="/logout/">   <button class="btn btn-danger">Logout</button></a></h2>
                  
               <br/>
 
                        {% for url in popA%}
-
+<center>
                <div class="col-sm-4">
+
 <br/>
  <form action="/{{url}}/" method="POST" class="p-relative">
                             <input type="hidden" name="user" value="{{name}}">
@@ -101,9 +101,9 @@
           <button class="btn btn-danger" alt="Submit" style="width:100%">Remove Comic</button>
 
 </form>
-                
-  
+        
 </div>
+</center>
     {% endfor %}
                    </div> 
             </section>

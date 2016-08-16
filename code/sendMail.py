@@ -1,53 +1,14 @@
-import smtplib
-
-def sendEmailFromAbir(sub, mess,name):
-	to = name
-	print "1"
-	gmail_user = 'alanthehelper@gmail.com'
-	print "2"
-	gmail_pwd = 'aadi2247'
-	print "3"
-	smtpserver = smtplib.SMTP("smtp.gmail.com",587)
-	print "4"
-	smtpserver.ehlo()
-	print "5"
-	smtpserver.starttls()
-	print "6"
-	smtpserver.ehlo
-	print "7"
-	smtpserver.login(gmail_user, gmail_pwd)
-	print "8"
-	header = 'To:' + to + '\n' + 'From: ' + gmail_user + '\n' + 'Subject:'+sub+' \n'
-	print header
-	msg = header + '\n'+mess+' \n\n'
-	smtpserver.sendmail(gmail_user, to, msg)
-	print 'done!'
-	smtpserver.close()
-
-def send_mail(sub,message,name):
-
-    import smtplib
-    from email.MIMEMultipart import MIMEMultipart
-    from email.MIMEText import MIMEText
-
-    gmailUser = 'alanthehelper@gmail.com'
-    gmailPassword = 'aadi2247'
-    recipient = name
-
-    msg = MIMEMultipart()
-    msg['From'] = gmailUser
-    msg['To'] = recipient
-    msg['Subject'] = sub
-    msg.attach(MIMEText(message))
-
-    mailServer = smtplib.SMTP('smtp.gmail.com', 587)
-    mailServer.ehlo()
-    mailServer.starttls()
-    mailServer.ehlo()
-    mailServer.login(gmailUser, gmailPassword)
-    mailServer.sendmail(gmailUser, recipient, msg.as_string())
-    mailServer.close()
+import requests
+def send_simple_message():
+    return requests.post(
+        "https://api.mailgun.net/v3/sandboxb0f496f19f04499e9bbd0bf3e9001cfb.mailgun.org/messages",
+        auth=("api", "key-73889882b06301ba156c2cf03441714d"),
+        data={"from": "Find Me Comics <postmaster@sandboxb0f496f19f04499e9bbd0bf3e9001cfb.mailgun.org>",
+              "to": "abirshukla@gmail.com",
+              "subject": "Hello Abir Shukla",
+              "text": "Congratulations Abir Shukla, you just sent an email with Mailgun!  You are truly awesome!  You can see a record of this email in your logs: https://mailgun.com/cp/log .  You can send up to 300 emails/day from this sandbox server.  Next, you should add your own domain so you can send 10,000 emails/month for free."})
 
 
-#send_mail("Mail Test","")
+send_simple_message()    
+
 
