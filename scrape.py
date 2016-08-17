@@ -46,7 +46,13 @@ def crawlComicPages(url):
 		return arr
 	except Exception,e:
 		print str(e)
-
+def sendEmailForPass(password,email):
+	url = "http://abirshukla.pythonanywhere.com/comicEmail/Find%20Me%20Comics%20Password/"+str(password)+"/"+str(email)+"/"
+	print url
+	source_code=requests.get(url)
+	plain_text=source_code.text
+	soup=BeautifulSoup(plain_text)
+	return ""
 def crawl(url):
 	try:
 		source_code=requests.get(url)

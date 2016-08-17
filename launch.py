@@ -7,7 +7,7 @@ from random import randint
 import time
 import scrape
 import os
-import sendMail
+#import sendMail
 app = Flask(__name__)
 @app.route('/')
 def Home():
@@ -180,11 +180,13 @@ def forgotEmail(email=None,passW=None):
 	email = ""
 	passW = ""
 	email = request.form['email']
-	if scrape.getPass(email) == "":
+	passW = scrape.getPass(email)
+	if passW == "":
 		return render_template("login.html",mess="Email not found :(")
 	else:
 		print "Sending mail"
-		sendMail.sendMailForComic("Password For Find Me Comics", "The password for your Find Me Comics Account is "+scrape.getPass(email)+".",email)
+		scrape.sendEmailForPass(passW,email)
+		print "Ok"
 		return render_template("login.html",mess="Email sent with Password")
 @app.route('/print/<comic>/<issue>/')
 def printComic(comic,issue,arr = None,name=None):
