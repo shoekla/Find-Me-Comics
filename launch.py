@@ -21,7 +21,9 @@ def signIn(email= None,passW=None,popA = None,images = None,pop = None,name=None
 	email = ""
 	passW = ""
 	email = request.form['email']
+	email = email.strip()
 	passW = request.form['passW']
+	passW = passW.strip()
 	#print "Sign2"
 	if scrape.loginUser(email,passW):
 		#print "Ips: "+scrape.ips
@@ -64,41 +66,111 @@ def search(name =None,popA = None, images = None,pop = None,user = None):
 
 @app.route('/<comic>/',methods=['POST'])
 def comicHome(comic,genre = None,iss=None, issName = None,status=None,image = None,comicName = None,com = None,name = None):
-	status = None
-	status = ""
-	genre = None
-	genre = ""
-	iss = None
-	iss = []
-	issName = None
-	comicName = None
-	comicName = ""
-	com = None
-	com = ""
-	issName = []
-	comic = comic.replace(" ","-")
-	name = None
+	try:
+		status = None
+		status = ""
+		genre = None
+		genre = ""
+		iss = None
+		iss = []
+		issName = None
+		comicName = None
+		comicName = ""
+		com = None
+		com = ""
+		issName = []
+		comic = comic.replace(" ","-")
+		name = None
+		name = ""
+		name = request.form['user']
+		com = scrape.checkComicInList(name,comic)
+		iss = scrape.getIssuse(comic)
+		for i in iss:
+			issName.append(scrape.getIssueName(i))
+		if len(issName) == 0:
+			issName = scrape.comicList
+		genre = scrape.getGenre(comic)
+		genre = genre.replace(" ,",",")
+		genre = genre.replace(",",", ")
+		status = scrape.getStatus(comic)
+		comicName = comic
+		comic = comic.replace("-"," ")
+		comic = comic.title()
+		image = None
+		image = ""
+		image = scrape.getPicFromName(comic)
+		scrape.setComicList(issName)
+		return render_template("comicHome.html",iss = iss, issName = issName, genre = genre, status = status,comic = comic,image = image,
+			comicName = comicName,com = com,name = name)
+	except:
+		comic = comic.replace("-"," ").title()
+		name = request.form['user']
+		return render_template("error.html",comic = comic,name = name)
+@app.route('/<comic>/')
+def loginInSave(comic):
+	return render_template("loginSave.html",comic=comic)
+@app.route('/FindMeComicUser/Save/',methods=['POST'])
+def loginBackendSave(email= None,passW=None,genre = None,iss=None, issName = None,status=None,image = None,comicName = None,com = None,name = None,comic = None):
+	#print "Sign"
+	email = None
+	passW = None
+	email = ""
+	passW = ""
+	email = request.form['email']
+	email = email.strip()
+	passW = request.form['passW']
+	passW = passW.strip()
 	name = ""
-	name = request.form['user']
-	com = scrape.checkComicInList(name,comic)
-	iss = scrape.getIssuse(comic)
-	for i in iss:
-		issName.append(scrape.getIssueName(i))
-	if len(issName) == 0:
-		issName = scrape.comicList
-	genre = scrape.getGenre(comic)
-	genre = genre.replace(" ,",",")
-	genre = genre.replace(",",", ")
-	status = scrape.getStatus(comic)
-	comicName = comic
-	comic = comic.replace("-"," ")
-	comic = comic.title()
-	image = None
-	image = ""
-	image = scrape.getPicFromName(comic)
-	scrape.setComicList(issName)
-	return render_template("comicHome.html",iss = iss, issName = issName, genre = genre, status = status,comic = comic,image = image,
-		comicName = comicName,com = com,name = name)
+	#print "Sign2"
+	if scrape.loginUser(email,passW):
+		try:
+			print "1"
+			status = None
+			status = ""
+			genre = None
+			genre = ""
+			iss = None
+			iss = []
+			issName = None
+			comicName = None
+			comicName = ""
+			com = None
+			com = ""
+			issName = []
+			print "2"
+			comic = None
+			comic = request.form['comic']
+			comic = comic.replace(" ","-")
+			name = None
+			name = ""
+			name = email
+			print "3"
+			com = scrape.checkComicInList(name,comic)
+			iss = scrape.getIssuse(comic)
+			for i in iss:
+				issName.append(scrape.getIssueName(i))
+			if len(issName) == 0:
+				issName = scrape.comicList
+			genre = scrape.getGenre(comic)
+			genre = genre.replace(" ,",",")
+			genre = genre.replace(",",", ")
+			status = scrape.getStatus(comic)
+			comicName = comic
+			comic = comic.replace("-"," ")
+			comic = comic.title()
+			image = None
+			image = ""
+			image = scrape.getPicFromName(comic)
+			scrape.setComicList(issName)
+			return render_template("comicHome.html",iss = iss, issName = issName, genre = genre, status = status,comic = comic,image = image,
+				comicName = comicName,com = com,name = name)
+		except:
+			comic = comic.replace("-"," ").title()
+			name = request.form['user']
+			return render_template("error.html",comic = comic,name = name)
+	else:
+		return render_template("loginSave.html",mess="Invalid Login Credentials")
+
 
 @app.route('/myComics',methods=['POST'])
 def myComicHome(popA = None,images = None,pop = None,name=None):
@@ -144,7 +216,9 @@ def signUp(email= None,passW=None):
 	email = ""
 	passW = ""
 	email = request.form['email']
+	email = email.strip()
 	passW = request.form['passW']
+	passW = passW.strip()
 	#print "Sign2"
 	if scrape.isGood(email):
 		return render_template("login.html",mess="Email already In System :(")
@@ -180,6 +254,7 @@ def forgotEmail(email=None,passW=None):
 	email = ""
 	passW = ""
 	email = request.form['email']
+	email = email.strip()
 	passW = scrape.getPass(email)
 	if passW == "":
 		return render_template("login.html",mess="Email not found :(")
