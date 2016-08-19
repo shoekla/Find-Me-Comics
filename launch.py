@@ -190,7 +190,9 @@ def myComicHome(popA = None,images = None,pop = None,name=None):
 		images.append(scrape.getPicFromName(i.replace("-"," ").title()))
 	#print "Almost"
 	return render_template("myComics.html",popA = popA,images=images,name = name)
-
+@app.route('/myComics')
+def notady():
+	return render_template("login.html")
 @app.route('/popularComics',methods=['POST'])
 def popluarComcis(popA = None, images = None,pop = None,name = None):
 	name = None
@@ -207,7 +209,9 @@ def popluarComcis(popA = None, images = None,pop = None,name = None):
 		images.append(scrape.getPic(i))
 		pop.append(scrape.getHomeLink(i))
 	return render_template("home.html",pop = pop,images = images,name=name)
-
+@app.route('/popularComics')
+def ntoda():
+	return render_template("login.html")
 @app.route('/AddComicUser',methods=['POST'])
 def signUp(email= None,passW=None):
 	#print "Sign"
