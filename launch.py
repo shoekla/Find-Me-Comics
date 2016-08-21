@@ -333,6 +333,54 @@ def readComic(comic,issue,arr = None,name=None,nextB = None,prev = None,user = N
 	name = comic.replace("-"," ").title()
 	return render_template("comic.html",arr=arr,issue=issue,comic=comic,name = name,nextB = nextB,prev = prev,user=user)
 
+
+@app.route('/recomendComic/<comic>/',methods=['POST'])
+def recoComic(comic, rec=None,genre = None,iss=None, issName = None,status=None,image = None,comicName = None,com = None,name = None):
+	name = None
+	name = ""
+	name = request.form['user']
+	rec = None
+	rec = ""
+	rec = request.form['recName']
+	scrape.sendEmailForRec(comic,name,rec)
+	try:
+		status = None
+		status = ""
+		genre = None
+		genre = ""
+		iss = None
+		iss = []
+		issName = None
+		comicName = None
+		comicName = ""
+		com = None
+		com = ""
+		issName = []
+		comic = comic.replace(" ","-")
+		com = scrape.checkComicInList(name,comic)
+		iss = scrape.getIssuse(comic)
+		for i in iss:
+			issName.append(scrape.getIssueName(i))
+		if len(issName) == 0:
+			issName = scrape.comicList
+		genre = scrape.getGenre(comic)
+		genre = genre.replace(" ,",",")
+		genre = genre.replace(",",", ")
+		status = scrape.getStatus(comic)
+		comicName = comic
+		comic = comic.replace("-"," ")
+		comic = comic.title()
+		image = None
+		image = ""
+		image = scrape.getPicFromName(comic)
+		scrape.setComicList(issName)
+		return render_template("comicHome.html",iss = iss, issName = issName, genre = genre, status = status,comic = comic,image = image,
+			comicName = comicName,com = com,name = name,mess="Comic Email Sent!")
+	except:
+		comic = comic.replace("-"," ").title()
+		name = request.form['user']
+		return render_template("error.html",comic = comic,name = name)
+
 if __name__ == '__main__':
 	app.run()
 

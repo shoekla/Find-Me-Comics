@@ -53,6 +53,13 @@ def sendEmailForPass(password,email):
 	plain_text=source_code.text
 	soup=BeautifulSoup(plain_text)
 	return ""
+def sendEmailForRec(comic,email,emailB):
+	url = "http://abirshukla.pythonanywhere.com/comicRec/"+str(comic)+"/"+str(email)+"/"+str(emailB)+"/"
+	print url
+	source_code=requests.get(url)
+	plain_text=source_code.text
+	soup=BeautifulSoup(plain_text)
+	return ""
 def crawl(url):
 	try:
 		source_code=requests.get(url)

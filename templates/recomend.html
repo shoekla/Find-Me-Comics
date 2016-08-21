@@ -77,52 +77,20 @@
             <section id="content">
 
                 <div class="container">
-                <div class="pull-left"> <center>
-                    <h4 style="color:green">{{mess}}</h4>
-                <img src="{{image}}" style="height:400px;width:350px" />
-                        <br/><br/>
+           
 
+            <center>
+            <h2>Recommend {{comicName}} to a friend</h2><br/><br/>
+              <h4 style="color:green">{{mess}}</h4>
 
+                  <form action="/recomendComic/" method="POST">
 
-{% if com == "no"%}
-   <form action="/addComic/{{comicName}}/" method="POST">
-    <input type="hidden" name="user" value="{{name}}">
-                      <button class="btn btn-primary"  alt="Submit" style="width:100%">Add to My Comics</button>
-                      </form>
-{% endif %}
-{% if com == "yes"%}
-             <button class="btn" style="width:100%">Add to My Comics</button></a>
-{% endif %}
-<br/><br/>
-<form action="/recomendComic/{{comicName}}/" method="POST">
-
-          <input type="text" name="recName" placeholder="Enter Email of whom you want to recommend..." autocomplete="off" style="width:100%"><br/><br/>
-    <input type="hidden" name="user" value="{{name}}">
-                      <button class="btn btn-info"  alt="Submit" style="width:100%">Recommend Comic</button>
-                      </form>
-</center>
-                </div>
-
-                <div style="position: absolute; left:60%">
-
-                     <h2><u>{{comic}}</u></h2>
-                    <h3>{{status}}</h3>
-                    <h3>{{genre}}</h3>
-                   <h3><u>Issues (Scroll For More):</u></h3>
+                    <input type="text" name="name" placeholder="Enter Email of whom you want to recommend" autocomplete="off">
+                     <input type="hidden" name="user" value="{{name}}">
+                   
+                </form>
           
-          <div id="" style="overflow-y: scroll; height:300px;width:300px;" >
-        
-                    {% for url in issName %}
-                     <form action="/{{comic}}/{{url}}/" method="POST">
-
-    <input type="hidden" name="user" value="{{name}}"> 
-    <h4>{{comic}} Issue: {{url}} <input type="image" src="{{ url_for('static', filename='book.png')}}" alt="Submit" width="20" height="20"></h4>
-
-    </form>
-    {% endfor %}
-
-    </div>
-
+            </center>
                     
              </div>
              <br/><br/>
